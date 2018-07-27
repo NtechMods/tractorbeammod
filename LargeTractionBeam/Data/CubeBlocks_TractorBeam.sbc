@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ResearchGroups>
+    <ResearchGroup>
+      <Id>
+        <TypeId>ResearchGroupDefinition</TypeId>
+        <SubtypeId>Tier4</SubtypeId>
+      </Id>
+      <ComponentId>
+        <TypeId>Component</TypeId>
+        <SubtypeId>A4_Research_Excellent</SubtypeId>
+      </ComponentId>
+      <GroupName>Ntech Quantum Modules</GroupName>
+      <GroupDescription>Ntech Quantum provides the most advanced technology for your stations and ships.</GroupDescription>
+    </ResearchGroup>
+  </ResearchGroups>
+
+  <CubeBlocks>
+    <Definition xsi:type="MyObjectBuilder_LargeTurretBaseDefinition">
+      <Id>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>LargeTractorBeam</SubtypeId>
+      </Id>
+      <DisplayName>Tractor Beam</DisplayName>
+      <Icon>Textures\GUI\Icons\Cubes\traction_turret.dds</Icon>
+      <CubeSize>Large</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="1" y="1" z="1" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Cubes\Large\TractorBeamTurret.mwm</Model>
+      <UseModelIntersection>true</UseModelIntersection>
+      <Components>
+        <Component Subtype="SteelPlate" Count="30" />
+        <Component Subtype="Construction" Count="10" />
+        <Component Subtype="LargeTube" Count="3" />
+		<Component Subtype="MetalGrid" Count="4" />
+        <Component Subtype="Motor" Count="4" />
+        <Component Subtype="Computer" Count="300" />
+        <Component Subtype="Construction" Count="10" />
+        <Component Subtype="SteelPlate" Count="10" />
+      </Components>
+      <CriticalComponent Subtype="Computer" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
+      </MountPoints>
+      <ResearchGroup>Tier4</ResearchGroup>
+      <ResearchCost>400</ResearchCost>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="0.33" File="Models\Cubes\Large\TractorBeamTurret_Constr1.mwm" />
+        <Model BuildPercentUpperBound="0.66" File="Models\Cubes\Large\TractorBeamTurret_Constr2.mwm" />
+        <Model BuildPercentUpperBound="1.00" File="Models\Cubes\Large\TractorBeamTurret_Constr3.mwm" />
+      </BuildProgressModels>
+      <BlockPairName>AttractorTurret</BlockPairName>
+      <MirroringY>Z</MirroringY>
+      <MirroringZ>Y</MirroringZ>
+      <EdgeType>Light</EdgeType>
+	  <EmissiveColorPreset>Extended</EmissiveColorPreset>
+      <BuildTimeSeconds>30</BuildTimeSeconds>
+      <OverlayTexture>Textures\GUI\Screens\turret_overlay.dds</OverlayTexture>
+      <WeaponDefinitionId Subtype="LargeTractorBeam" />
+      <InventoryMaxVolume>0.384</InventoryMaxVolume>
+      <MinElevationDegrees>-5</MinElevationDegrees>
+      <MaxElevationDegrees>90</MaxElevationDegrees>
+      <MinAzimuthDegrees>-180</MinAzimuthDegrees>
+      <MaxAzimuthDegrees>180</MaxAzimuthDegrees>
+      <RotationSpeed>0.004</RotationSpeed>
+      <ElevationSpeed>0.004</ElevationSpeed>
+      <IdlePower>1</IdlePower>
+	  <UsePower>10</UsePower>
+      <MinFov>0.1</MinFov>
+      <MaxFov>1.04719755</MaxFov>
+      <EmissiveColorPreset>Default</EmissiveColorPreset>
+      <MaxRangeMeters>800</MaxRangeMeters>
+    </Definition>
+
+    <Definition xsi:type="MyObjectBuilder_LargeTurretBaseDefinition">
+      <Id>
+        <TypeId>LargeGatlingTurret</TypeId>
+        <SubtypeId>TractorBeam</SubtypeId>
+      </Id>
+      <DisplayName>Tractor Beam</DisplayName>
+      <Icon>Textures\GUI\Icons\Cubes\traction_turret.dds</Icon>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="3" y="3" z="3" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\Cubes\Large\TractorBeamTurretSB.mwm</Model>
+      <UseModelIntersection>true</UseModelIntersection>
+      <Components>
+        <Component Subtype="SteelPlate" Count="30" />
+        <Component Subtype="Construction" Count="10" />
+        <Component Subtype="LargeTube" Count="3" />
+		<Component Subtype="MetalGrid" Count="4" />
+        <Component Subtype="Motor" Count="4" />
+        <Component Subtype="Computer" Count="300" />
+        <Component Subtype="Construction" Count="10" />
+        <Component Subtype="SteelPlate" Count="10" />
+      </Components>
+      <CriticalComponent Subtype="Computer" Index="0" />
+	  <MountPoints>
+	   <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="3" EndY="3" />
+	  </MountPoints>
+      <ResearchGroup>Tier4</ResearchGroup>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="0.33" File="Models\Cubes\Large\TractorBeamTurretSB_Constr1.mwm" />
+        <Model BuildPercentUpperBound="1.00" File="Models\Cubes\Large\TractorBeamTurretSB_Constr2.mwm" />
+      </BuildProgressModels>
+      <BlockPairName>AttractorTurret</BlockPairName>
+      <MirroringY>Z</MirroringY>
+      <MirroringZ>Y</MirroringZ>
+      <EdgeType>Light</EdgeType>
+	  <EmissiveColorPreset>Extended</EmissiveColorPreset>
+      <BuildTimeSeconds>40</BuildTimeSeconds>
+      <OverlayTexture>Textures\GUI\Screens\turret_overlay.dds</OverlayTexture>
+      <WeaponDefinitionId Subtype="TractorBeam" />
+      <InventoryMaxVolume>0.384</InventoryMaxVolume>
+      <StandbyPowerConsumption>1</StandbyPowerConsumption>
+      <OperationalPowerConsumption>10</OperationalPowerConsumption>
+	  <AiEnabled>true</AiEnabled>
+	  <DamageEffectId>214</DamageEffectId>
+      <ResourceSinkGroup>Defense</ResourceSinkGroup>
+      <MinElevationDegrees>-5</MinElevationDegrees>
+      <MaxElevationDegrees>90</MaxElevationDegrees>
+      <MinAzimuthDegrees>-180</MinAzimuthDegrees>
+      <MaxAzimuthDegrees>180</MaxAzimuthDegrees>
+      <RotationSpeed>0.008</RotationSpeed>
+      <ElevationSpeed>0.008 </ElevationSpeed>
+      <MinFov>0.1</MinFov>
+      <MaxFov>1.04719755</MaxFov>
+      <IdleRotation>true</IdleRotation>
+      <MaxRangeMeters>800</MaxRangeMeters>
+    </Definition>
+
+  </CubeBlocks>
+</Definitions>
