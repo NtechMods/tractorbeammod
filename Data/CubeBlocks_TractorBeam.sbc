@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ResearchGroups>
+<!--  <ResearchGroups>
     <ResearchGroup>
       <Id>
         <TypeId>ResearchGroupDefinition</TypeId>
@@ -13,7 +13,7 @@
       <GroupName>Ntech Quantum Modules</GroupName>
       <GroupDescription>Ntech Quantum provides the most advanced technologies for your stations and ships.</GroupDescription>
     </ResearchGroup>
-  </ResearchGroups>
+  </ResearchGroups> -->
 
   <CubeBlocks>
     <Definition xsi:type="MyObjectBuilder_LargeTurretBaseDefinition">
@@ -43,8 +43,8 @@
       <MountPoints>
         <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1" EndY="1" />
       </MountPoints>
-      <ResearchGroup>Tier4</ResearchGroup>
-      <ResearchCost>400</ResearchCost>
+   <!--   <ResearchGroup>Tier4</ResearchGroup>
+      <ResearchCost>400</ResearchCost> -->
       <BuildProgressModels>
         <Model BuildPercentUpperBound="0.33" File="Models\Cubes\Large\TractorBeamTurret_Constr1.mwm" />
         <Model BuildPercentUpperBound="0.66" File="Models\Cubes\Large\TractorBeamTurret_Constr2.mwm" />
@@ -69,6 +69,7 @@
 	  <UsePower>10</UsePower>
       <MinFov>0.1</MinFov>
       <MaxFov>1.04719755</MaxFov>
+	  <PCU>620</PCU>
       <EmissiveColorPreset>Default</EmissiveColorPreset>
       <MaxRangeMeters>800</MaxRangeMeters>
     </Definition>
@@ -129,6 +130,7 @@
       <MaxFov>1.04719755</MaxFov>
       <IdleRotation>true</IdleRotation>
       <MaxRangeMeters>800</MaxRangeMeters>
+	  <PCU>620</PCU>
     </Definition>
 
   </CubeBlocks>
