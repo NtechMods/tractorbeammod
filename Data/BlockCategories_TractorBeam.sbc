@@ -28,8 +28,8 @@
         <TypeId>GuiBlockCategoryDefinition</TypeId>
         <SubtypeId/>
       </Id>
-      <DisplayName>Ntech - Tractor Beams</DisplayName>
-      <Name>Tractor Beams</Name>
+      <DisplayName>Ntech Mods</DisplayName>
+      <Name>Ntech</Name>
       <ItemIds>
 			<string>LargeGatlingTurret/TractorBeam</string>
 			<string>LargeGatlingTurret/LargeAttractorTurret</string>
