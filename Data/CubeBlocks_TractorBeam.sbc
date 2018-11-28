@@ -51,6 +51,7 @@
         <Model BuildPercentUpperBound="1.00" File="Models\Cubes\Large\TractorBeamTurret_Constr3.mwm" />
       </BuildProgressModels>
       <BlockPairName>AttractorTurret</BlockPairName>
+      <Description>Ntech Mods has harnessed gravity and packed it into this little turret that can pull grids to you.</Description>
       <MirroringY>Z</MirroringY>
       <MirroringZ>Y</MirroringZ>
       <EdgeType>Light</EdgeType>
@@ -107,6 +108,7 @@
         <Model BuildPercentUpperBound="1.00" File="Models\Cubes\Large\TractorBeamTurretSB_Constr2.mwm" />
       </BuildProgressModels>
       <BlockPairName>AttractorTurret</BlockPairName>
+      <Description>Ntech Mods has harnessed gravity and packed it into this little turret that can pull grids to you.</Description>
       <MirroringY>Z</MirroringY>
       <MirroringZ>Y</MirroringZ>
       <EdgeType>Light</EdgeType>
