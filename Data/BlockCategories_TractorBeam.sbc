@@ -32,7 +32,6 @@
       <Name>Ntech</Name>
       <ItemIds>
 			<string>LargeGatlingTurret/TractorBeam</string>
-			<string>LargeGatlingTurret/LargeAttractorTurret</string>
       </ItemIds>
     </Category>
 </CategoryClasses>
