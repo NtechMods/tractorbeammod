@@ -306,7 +306,7 @@ namespace TractorBeam
                     VRage.Game.MySimpleObjectDraw.DrawLine(from, to, material, ref maincolor, 0.5f * 1.2f);
                 }
             }
-        }
+        } 
 
         void Recharge()
         {
