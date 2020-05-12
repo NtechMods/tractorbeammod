@@ -179,7 +179,12 @@ namespace TractorBeam
 
         public override void UpdateOnceBeforeFrame()
         {
-
+			if (UI == null)
+			{
+				UI = new LSE.TractorUI<Sandbox.ModAPI.Ingame.IMyLargeTurretBase>();
+				UI.CreateUI((Sandbox.ModAPI.IMyTerminalBlock)Entity);
+			}
+			
             resourceSink = Entity.Components.Get<MyResourceSinkComponent>();
 
             resourceSink.SetRequiredInputByType(electricityDefinition, 0.0021f);
