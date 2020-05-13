@@ -33,27 +33,27 @@ namespace LSE
         public MinSlider<T> MinSlider;
         public StrengthSlider<T> StrengthSlider;
 
-        public bool Initialized = false;
+        public bool Initialized_Attractor = false;
         public void CreateUI(IMyTerminalBlock block)
         {
-            if (Initialized) { return; }
-            Initialized = true;
+            if (Initialized_Attractor) { return; }
+            Initialized_Attractor = true;
 
             MinSlider = new MinSlider<T>(this, 
                 block,
               "MinSlider",
               "Minimum Distance",
-              3, 200, 50);
+              3, 200, 60);
             MaxSlider = new MaxSlider<T>(this,
                 block,
               "MaxSlider",
               "Maximum Distance",
-              3, 200, 60);
+              3, 200, 80);
             StrengthSlider = new StrengthSlider<T>(this,
                 block,
               "StrengthSlider",
               "Strength",
-              2000, 990000, 10000, true);
+              2000, 990000, 80000, true);
 
             new SliderAction<T>(block, "IncMax", "Increase maximum distance", "", MaxSlider, 1.0f);
             new SliderAction<T>(block, "DecMax", "Decrease maximum distance", "", MaxSlider, -1.0f);

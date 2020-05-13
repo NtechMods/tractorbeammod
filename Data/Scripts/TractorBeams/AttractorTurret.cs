@@ -69,7 +69,7 @@ namespace TractorBeam
             base.Init(objectBuilder);
             this.objectBuilder = objectBuilder;
 
-            Entity.NeedsUpdate |= MyEntityUpdateEnum.BEFORE_NEXT_FRAME | MyEntityUpdateEnum.EACH_FRAME;
+            Entity.NeedsUpdate |= MyEntityUpdateEnum.BEFORE_NEXT_FRAME | MyEntityUpdateEnum.EACH_FRAME | MyEntityUpdateEnum.EACH_100TH_FRAME;
 
             functionalBlock = Entity as Sandbox.ModAPI.IMyFunctionalBlock;
             cubeBlock = Entity as IMyCubeBlock;
@@ -179,12 +179,11 @@ namespace TractorBeam
 
         public override void UpdateOnceBeforeFrame()
         {
-			if (UI == null)
-			{
-				UI = new LSE.TractorUI<Sandbox.ModAPI.Ingame.IMyLargeTurretBase>();
-				UI.CreateUI((Sandbox.ModAPI.IMyTerminalBlock)Entity);
-			}
-			
+            if (UI == null)
+            {
+                UI = new LSE.TractorUI<Sandbox.ModAPI.Ingame.IMyLargeTurretBase>();
+                UI.CreateUI((Sandbox.ModAPI.IMyTerminalBlock)Entity);
+            }
             resourceSink = Entity.Components.Get<MyResourceSinkComponent>();
 
             resourceSink.SetRequiredInputByType(electricityDefinition, 0.0021f);
@@ -240,7 +239,7 @@ namespace TractorBeam
 
         public override void UpdateBeforeSimulation()
         {
-            if (UI == null || !UI.Initialized) { return; }
+            if (UI == null || !UI.Initialized_Attractor) { return; }
             if (Entity == null) { return; }
 
             IMyCubeBlock cube = Entity as IMyCubeBlock;
@@ -311,7 +310,7 @@ namespace TractorBeam
                     VRage.Game.MySimpleObjectDraw.DrawLine(from, to, material, ref maincolor, 0.5f * 1.2f);
                 }
             }
-        } 
+        }
 
         void Recharge()
         {
@@ -355,7 +354,7 @@ namespace TractorBeam
 				}
 			}
 
-            terminalBlock.RefreshCustomInfo ();
+//            terminalBlock.RefreshCustomInfo ();
 		}
 
 		public override void Close ()
