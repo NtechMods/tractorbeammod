@@ -43,12 +43,12 @@ namespace LSE
                 block,
               "MinSlider",
               "Minimum Distance",
-              3, 200, 60);
+              3, 300, 30);
             MaxSlider = new MaxSlider<T>(this,
                 block,
               "MaxSlider",
               "Maximum Distance",
-              3, 200, 80);
+              3, 300, 35);
             StrengthSlider = new StrengthSlider<T>(this,
                 block,
               "StrengthSlider",

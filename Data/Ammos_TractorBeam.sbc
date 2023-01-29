@@ -7,9 +7,9 @@
         <SubtypeId>LargeAttractorEnergyCell</SubtypeId>
       </Id>
       <BasicProperties>
-        <DesiredSpeed>0</DesiredSpeed>
+        <DesiredSpeed>10000</DesiredSpeed>
         <SpeedVariance>0</SpeedVariance>
-        <MaxTrajectory>0</MaxTrajectory>
+        <MaxTrajectory>1000</MaxTrajectory>
         <BackkickForce>0</BackkickForce>
       </BasicProperties>
       <ProjectileProperties>
