@@ -1,23 +1,24 @@
 <?xml version="1.0"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <AmmoMagazines>
-<AmmoMagazine>
-      <Id>
-        <TypeId>AmmoMagazine</TypeId>
-        <SubtypeId>LargeAttractorEnergyCell</SubtypeId>
-      </Id>
-      <DisplayName>Large Attractor Cell</DisplayName>
-      <Icon>Textures\GUI\Icons\ammo\LargeAttractorEnergyCell.dds</Icon>
-      <Size>
-        <X>0.02</X>
-        <Y>0.02</Y>
-        <Z>0.02</Z>
-      </Size>
-      <Mass>2</Mass>
-      <Volume>2</Volume>
-      <Model>Models\Components\AttractorEnergyCell.mwm</Model>
-      <Capacity>899</Capacity>
-      <AmmoDefinitionId Subtype="LargeAttractorEnergyCell" />
-    </AmmoMagazine>
-  </AmmoMagazines>
+    <AmmoMagazines>
+        <AmmoMagazine>
+            <Id>
+                <TypeId>AmmoMagazine</TypeId>
+                <SubtypeId>LargeAttractorEnergyCell</SubtypeId>
+            </Id>
+            <DisplayName>Large Attractor Cell</DisplayName>
+            <Icon>Textures\GUI\Icons\ammo\LargeAttractorEnergyCell.dds</Icon>
+            <Size>
+                <X>0.02</X>
+                <Y>0.02</Y>
+                <Z>0.02</Z>
+            </Size>
+            <Mass>2</Mass>
+            <Volume>2</Volume>
+            <Model>Models\Components\AttractorEnergyCell.mwm</Model>
+            <PhysicalMaterial>Ammo</PhysicalMaterial>
+            <Capacity>7000</Capacity>
+            <AmmoDefinitionId Subtype="LargeAttractorEnergyCell"/>
+        </AmmoMagazine>
+    </AmmoMagazines>
 </Definitions>

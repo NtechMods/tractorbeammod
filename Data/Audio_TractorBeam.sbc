@@ -1,29 +1,29 @@
 <?xml version="1.0"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Sounds>
-    <Sound>
-      <Id>
-        <TypeId>AudioDefinition</TypeId>
-        <SubtypeId>BeamSound</SubtypeId>
-      </Id>
-      <Category>WEP_TURR</Category>
-      <MaxDistance>30</MaxDistance>
-      <PitchVariation>50</PitchVariation>
-      <VolumeVariation>0.1</VolumeVariation>
-      <Volume>0.46</Volume>
-	  <Loopable>true</Loopable>
-      <Waves>
-        <Wave Type="D3">
-		  <Start>Audio\WEP\BeamToneStart_3D.wav</Start>
-          <Loop>Audio\WEP\BeamTone_3D.wav</Loop>
-		  <End>Audio\WEP\BeamToneEnd_3D.wav</End>
-        </Wave>
-        <Wave Type="D2">
-		  <Start>Audio\WEP\BeamToneStart_2D.wav</Start>
-          <Loop>Audio\WEP\BeamTone_2D.wav</Loop>
-		  <End>Audio\WEP\BeamToneEnd_2D.wav</End>
-        </Wave>
-      </Waves>
-    </Sound>
-  </Sounds>
+    <Sounds>
+        <Sound>
+            <Id>
+                <TypeId>AudioDefinition</TypeId>
+                <SubtypeId>BeamSound</SubtypeId>
+            </Id>
+            <Category>WEP_TURR</Category>
+            <MaxDistance>30</MaxDistance>
+            <PitchVariation>50</PitchVariation>
+            <VolumeVariation>0.1</VolumeVariation>
+            <Volume>0.46</Volume>
+            <Loopable>true</Loopable>
+            <Waves>
+                <Wave Type="D3">
+                    <Start>Audio\WEP\BeamToneStart_3D.wav</Start>
+                    <Loop>Audio\WEP\BeamTone_3D.wav</Loop>
+                    <End>Audio\WEP\BeamToneEnd_3D.wav</End>
+                </Wave>
+                <Wave Type="D2">
+                    <Start>Audio\WEP\BeamToneStart_2D.wav</Start>
+                    <Loop>Audio\WEP\BeamTone_2D.wav</Loop>
+                    <End>Audio\WEP\BeamToneEnd_2D.wav</End>
+                </Wave>
+            </Waves>
+        </Sound>
+    </Sounds>
 </Definitions>

@@ -1,25 +1,29 @@
 <?xml version="1.0"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Ammos>
-    <Ammo xsi:type="MyObjectBuilder_ProjectileAmmoDefinition">
-      <Id>
-        <TypeId>AmmoDefinition</TypeId>
-        <SubtypeId>LargeAttractorEnergyCell</SubtypeId>
-      </Id>
-      <BasicProperties>
-        <DesiredSpeed>10000</DesiredSpeed>
-        <SpeedVariance>0</SpeedVariance>
-        <MaxTrajectory>1000</MaxTrajectory>
-        <BackkickForce>0</BackkickForce>
-      </BasicProperties>
-      <ProjectileProperties>
-        <ProjectileHitImpulse>0</ProjectileHitImpulse>
-        <ProjectileMassDamage>0</ProjectileMassDamage>
-        <ProjectileHealthDamage>0</ProjectileHealthDamage>
-        <ProjectileTrailScale>0</ProjectileTrailScale>
-        <ProjectileTrailColor x="0" y="0" z="0" /> <!-- x=red y=green z=blue -->
-        <ProjectileTrailProbability>0</ProjectileTrailProbability>
-      </ProjectileProperties>
-    </Ammo>
-  </Ammos>
+    <Ammos>
+        <Ammo xsi:type="MyObjectBuilder_ProjectileAmmoDefinition">
+            <Id>
+                <TypeId>AmmoDefinition</TypeId>
+                <SubtypeId>LargeAttractorEnergyCell</SubtypeId>
+            </Id>
+            <BasicProperties>
+                <DesiredSpeed>0</DesiredSpeed>
+                <SpeedVariance>0</SpeedVariance>
+                <MaxTrajectory>800</MaxTrajectory>
+                <BackkickForce>0</BackkickForce>
+                <PhysicalMaterial>RifleBullet</PhysicalMaterial>
+                <ExplosiveDamageMultiplier>0</ExplosiveDamageMultiplier>
+            </BasicProperties>
+            <ProjectileProperties>
+                <ProjectileTrailScale>0</ProjectileTrailScale>
+                <ProjectileHitImpulse>0</ProjectileHitImpulse>
+                <ProjectileMassDamage>0</ProjectileMassDamage>
+                <ProjectileHealthDamage>0</ProjectileHealthDamage>
+                <HeadShot>false</HeadShot>
+                <ProjectileHeadShotDamage>0</ProjectileHeadShotDamage>
+                <ProjectileTrailColor x="0" y="0" z="0"/> <!-- x=red y=green z=blue -->
+                <ProjectileTrailProbability>0</ProjectileTrailProbability>
+            </ProjectileProperties>
+        </Ammo>
+    </Ammos>
 </Definitions>
