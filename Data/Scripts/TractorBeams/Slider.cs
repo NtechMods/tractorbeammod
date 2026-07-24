@@ -30,9 +30,9 @@ namespace LSE.Control
             IMyTerminalBlock block,
             string internalName,
             string title,
-            float min = 0.0f,
-            float max = 100.0f,
-            float standard = 10.0f,
+            float min = 1.0f,
+            float max = 800.0f,
+            float standard = 80.0f,
             bool log = false)            
             : base(block, internalName, title)
         {

@@ -260,8 +260,15 @@ namespace TractorBeam
             var target = cachedTarget;
             
 
-            var isShooting = (Entity as Sandbox.ModAPI.IMyUserControllableGun).IsShooting;
+            var beamEnabled = functionalBlock != null && functionalBlock.Enabled;
+            var isShooting = beamEnabled && (Entity as Sandbox.ModAPI.IMyUserControllableGun).IsShooting;
             var hasLineOfSight = target != null && target.Physics != null && cubeBlock != null && cubeBlock.CubeGrid != null && target.EntityId != cubeBlock.CubeGrid.EntityId;
+
+            if (!beamEnabled && target != null && target.Physics != null)
+            {
+                var damping = new Vector3D(target.Physics.LinearVelocity) * -0.15d;
+                target.Physics.AddForce(MyPhysicsForceType.APPLY_WORLD_FORCE, damping, null, null);
+            }
 
             if (isShooting && hasLineOfSight)
             {
@@ -278,6 +285,7 @@ namespace TractorBeam
 
 
                 var distance = Vector3D.Distance(from, to);
+                // new code to apply force based on distance and eliminate the min max sliders
                 var desiredDistance = UI.DistanceSlider.Getter(terminalBlock);
                 var force = UI.StrengthSlider.Getter(terminalBlock);
                 var forceVector = force * toTarget;
