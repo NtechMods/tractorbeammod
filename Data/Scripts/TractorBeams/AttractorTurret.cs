@@ -1,5 +1,6 @@
 ﻿
 
+using System;
 using VRage.Game.Components;
 using Sandbox.Common.ObjectBuilders;
 using VRage.Game;
@@ -15,10 +16,9 @@ using Sandbox.ModAPI;
 using Sandbox.ModAPI.Ingame;
 using Sandbox.Game.Entities;
 using VRageMath;
-using VRage.Game.Entity;
-using Sandbox.Game.Gui;
-using VRage.Utils;
 using VRage.Game.ModAPI.Interfaces;
+using VRage.Game.Entity;
+using VRage.Utils;
 
 namespace TractorBeam
 {
@@ -51,6 +51,12 @@ namespace TractorBeam
 
         long lastShootTime;
         int lastShootTimeTicks;
+
+        // Caching for performance
+        private IMyCubeGrid cachedTarget;
+        private int targetCacheTicks = 0;
+        private int cachedCharges = -1;
+        private int chargeCacheTicks = 0;
 
 
         bool hitBool = false;
@@ -117,17 +123,17 @@ namespace TractorBeam
 
             info.AppendLine("Type: " + cubeBlock.DefinitionDisplayNameText);
             info.AppendLine("Required Input: " + powerConsumption.ToString("N") + "MW");
-            info.AppendLine("Maximum Input: " + attractorWeaponInfo.powerUsage.ToString("N") + "MW");
+            info.AppendLine("Maximum Input: " + attractorWeaponInfo.PowerUsage.ToString("N") + "MW");
 
             info.AppendLine(" ");
 
-            if (attractorWeaponInfo.classes > 1) {
+            if (attractorWeaponInfo.Classes > 1) {
 
                 info.AppendLine("Class: " + "Class " + (damageUpgrades + 1) + " Beam Weapon");
 
             }
 
-            info.AppendLine("Heat: " + currentHeat + "/" + (attractorWeaponInfo.maxHeat).ToString("N") + "C");
+            info.AppendLine("Heat: " + currentHeat + "/" + (attractorWeaponInfo.MaxHeat).ToString("N") + "C");
             info.AppendLine("Overheated: " + overheated);
         }
 
@@ -135,29 +141,29 @@ namespace TractorBeam
 
             chargeObjectBuilders = new List<MyObjectBuilder_AmmoMagazine>();
 
-            if (attractorWeaponInfo.classes == 1) {
+            if (attractorWeaponInfo.Classes == 1) {
 
-                chargeObjectBuilders.Add(new MyObjectBuilder_AmmoMagazine() { SubtypeName = "" + attractorWeaponInfo.ammoName });
+                chargeObjectBuilders.Add(new MyObjectBuilder_AmmoMagazine() { SubtypeName = "" + attractorWeaponInfo.AmmoName });
 
             } else {
 
-                for (int i = 1; i <= attractorWeaponInfo.classes; i++) {
+                for (int i = 1; i <= attractorWeaponInfo.Classes; i++) {
 
-                    chargeObjectBuilders.Add(new MyObjectBuilder_AmmoMagazine() { SubtypeName = "" + "Class" + i + attractorWeaponInfo.ammoName });
+                    chargeObjectBuilders.Add(new MyObjectBuilder_AmmoMagazine() { SubtypeName = "" + "Class" + i + attractorWeaponInfo.AmmoName });
                 }
             }
 
             chargeDefinitionIds = new List<SerializableDefinitionId>();
 
-            if (attractorWeaponInfo.classes == 1) {
+            if (attractorWeaponInfo.Classes == 1) {
 
-                chargeDefinitionIds.Add(new SerializableDefinitionId(typeof(MyObjectBuilder_AmmoMagazine), "" + attractorWeaponInfo.ammoName));
+                chargeDefinitionIds.Add(new SerializableDefinitionId(typeof(MyObjectBuilder_AmmoMagazine), "" + attractorWeaponInfo.AmmoName));
 
             } else {
 
-                for (int i = 1; i <= attractorWeaponInfo.classes; i++) {
+                for (int i = 1; i <= attractorWeaponInfo.Classes; i++) {
 
-                    chargeDefinitionIds.Add(new SerializableDefinitionId(typeof(MyObjectBuilder_AmmoMagazine), "Class" + i + attractorWeaponInfo.ammoName));
+                    chargeDefinitionIds.Add(new SerializableDefinitionId(typeof(MyObjectBuilder_AmmoMagazine), "Class" + i + attractorWeaponInfo.AmmoName));
                 }
             }
         }
@@ -170,10 +176,10 @@ namespace TractorBeam
         private void getAttractorWeaponInfo(string name) {
 
             if (subtypeName == "LargeTractorBeam") {
-                attractorWeaponInfo = TractorBeamManager.largeBlockAttractorTurret;
+                attractorWeaponInfo = TractorBeamManager.LargeBlockAttractorTurret;
             }
 			else if (subtypeName == "TractorBeam") {
-                attractorWeaponInfo = TractorBeamManager.largeBlockAttractorTurret;
+                attractorWeaponInfo = TractorBeamManager.LargeBlockAttractorTurret;
             }
         }
 
@@ -243,11 +249,21 @@ namespace TractorBeam
             if (Entity == null) { return; }
 
             IMyCubeBlock cube = Entity as IMyCubeBlock;
-            var target = GetTarget();
+
+            // Cache target to reduce raycasting frequency
+            if (targetCacheTicks <= 0) {
+                cachedTarget = GetTarget();
+                targetCacheTicks = 2; // update every 2 frames
+            } else {
+                targetCacheTicks--;
+            }
+            var target = cachedTarget;
             
 
             var isShooting = (Entity as Sandbox.ModAPI.IMyUserControllableGun).IsShooting;
-            if (isShooting && target != null && target.Physics != null)
+            var hasLineOfSight = target != null && target.Physics != null && cubeBlock != null && cubeBlock.CubeGrid != null && target.EntityId != cubeBlock.CubeGrid.EntityId;
+
+            if (isShooting && hasLineOfSight)
             {
                 var grid = target;
                 MyEntitySubpart subpart1 = cubeBlock.GetSubpart("GatlingTurretBase1");
@@ -262,22 +278,17 @@ namespace TractorBeam
 
 
                 var distance = Vector3D.Distance(from, to);
-                var min = UI.MinSlider.Getter(terminalBlock);
-                var max = UI.MaxSlider.Getter(terminalBlock);
+                var desiredDistance = UI.DistanceSlider.Getter(terminalBlock);
                 var force = UI.StrengthSlider.Getter(terminalBlock);
                 var forceVector = force * toTarget;
 
-                if (distance > max)
+                if (distance > desiredDistance)
                 {
                     grid.Physics.AddForce(MyPhysicsForceType.APPLY_WORLD_FORCE, -forceVector, null, null);
                 }
-                else if (distance < min)
+                else if (distance < desiredDistance)
                 {
-                    var percentage = 1 - (distance * distance) / (min * min);
-                    var additionalForce = toTarget * percentage * (UI.StrengthSlider.Max - force);
-                    var velocity = new Vector3D(grid.Physics.LinearVelocity);
-					velocity.Normalize();
-                    grid.Physics.AddForce(MyPhysicsForceType.APPLY_WORLD_FORCE, forceVector + additionalForce / 4, null, null);
+                    grid.Physics.AddForce(MyPhysicsForceType.APPLY_WORLD_FORCE, forceVector, null, null);
                 }
                 else
                 {
@@ -286,7 +297,7 @@ namespace TractorBeam
                     grid.Physics.AddForce(MyPhysicsForceType.APPLY_WORLD_FORCE, force * -velocity / 3, null, null);
                 }
 
-                DrawShootingEffect(from, to);
+                // DrawShootingEffect(from, to);
             }
             Recharge();
         }
@@ -301,8 +312,8 @@ namespace TractorBeam
             {
                 if (!MyAPIGateway.Session.CreativeMode)
                 {
-                    VRage.Game.MySimpleObjectDraw.DrawLine(from, to, material, ref auxcolor, 0.15f * (currentHeat / attractorWeaponInfo.maxHeat + 0.2f));
-                    VRage.Game.MySimpleObjectDraw.DrawLine(from, to, material, ref maincolor, 0.5f * (currentHeat / attractorWeaponInfo.maxHeat + 0.2f));
+                    VRage.Game.MySimpleObjectDraw.DrawLine(from, to, material, ref auxcolor, 0.15f * (currentHeat / attractorWeaponInfo.MaxHeat + 0.2f));
+                    VRage.Game.MySimpleObjectDraw.DrawLine(from, to, material, ref maincolor, 0.5f * (currentHeat / attractorWeaponInfo.MaxHeat + 0.2f));
                 }
                 else
                 {
@@ -314,15 +325,25 @@ namespace TractorBeam
 
         void Recharge()
         {
-            int chargesInInventory = (int)m_inventory.GetItemAmount(chargeDefinitionIds[damageUpgrades]);
-            if (chargesInInventory < attractorWeaponInfo.keepAtCharge) {
+            // Cache inventory check to reduce frequency
+            int chargesInInventory;
+            if (chargeCacheTicks <= 0) {
+                chargesInInventory = (int)m_inventory.GetItemAmount(chargeDefinitionIds[damageUpgrades]);
+                cachedCharges = chargesInInventory;
+                chargeCacheTicks = 10; // update every 10 frames
+            } else {
+                chargesInInventory = cachedCharges;
+                chargeCacheTicks--;
+            }
 
-				if (resourceSink.RequiredInputByType(electricityDefinition) != (attractorWeaponInfo.powerUsage/efficiencyUpgrades)) {
+            if (chargesInInventory < attractorWeaponInfo.KeepAtCharge) {
+
+				if (resourceSink.RequiredInputByType(electricityDefinition) != (attractorWeaponInfo.PowerUsage/efficiencyUpgrades)) {
 					
-					resourceSink.SetRequiredInputByType (electricityDefinition, (attractorWeaponInfo.powerUsage/efficiencyUpgrades));
+					resourceSink.SetRequiredInputByType (electricityDefinition, (attractorWeaponInfo.PowerUsage/efficiencyUpgrades));
 
-					setPowerConsumption = (attractorWeaponInfo.powerUsage/efficiencyUpgrades);
-					powerConsumption = (attractorWeaponInfo.powerUsage/efficiencyUpgrades);
+					setPowerConsumption = (attractorWeaponInfo.PowerUsage/efficiencyUpgrades);
+					powerConsumption = (attractorWeaponInfo.PowerUsage/efficiencyUpgrades);
 
 				} else {
 
@@ -332,16 +353,16 @@ namespace TractorBeam
 					}
 				}
 
-				if (resourceSink.CurrentInputByType (electricityDefinition) == (attractorWeaponInfo.powerUsage/efficiencyUpgrades)) {
+				if (resourceSink.CurrentInputByType (electricityDefinition) == (attractorWeaponInfo.PowerUsage/efficiencyUpgrades)) {
 
 					if (!overheated) {
-						m_inventory.AddItems ((MyFixedPoint)(attractorWeaponInfo.keepAtCharge - chargesInInventory), chargeObjectBuilders [damageUpgrades]);
+						m_inventory.AddItems ((MyFixedPoint)(attractorWeaponInfo.KeepAtCharge - chargesInInventory), chargeObjectBuilders [damageUpgrades]);
 					}
 				}
 
-			} else if(chargesInInventory > attractorWeaponInfo.keepAtCharge) {
+			} else if(chargesInInventory > attractorWeaponInfo.KeepAtCharge) {
 				
-				m_inventory.RemoveItemsOfType ((MyFixedPoint)(chargesInInventory - attractorWeaponInfo.keepAtCharge), chargeObjectBuilders [damageUpgrades]);
+				m_inventory.RemoveItemsOfType ((MyFixedPoint)(chargesInInventory - attractorWeaponInfo.KeepAtCharge), chargeObjectBuilders [damageUpgrades]);
 
 			} else  {
 				
@@ -362,7 +383,7 @@ namespace TractorBeam
 
 			if (m_inventory != null) {
 
-				for (int i = 0; i < attractorWeaponInfo.classes; i++) { 
+				for (int i = 0; i < attractorWeaponInfo.Classes; i++) { 
 					m_inventory.RemoveItemsOfType (m_inventory.GetItemAmount (chargeDefinitionIds[i]), chargeObjectBuilders[i]);
 				}
 			}
@@ -374,7 +395,7 @@ namespace TractorBeam
 		{
 			if (m_inventory != null) {
 
-				for (int i = 0; i < attractorWeaponInfo.classes; i++) { 
+				for (int i = 0; i < attractorWeaponInfo.Classes; i++) { 
 					m_inventory.RemoveItemsOfType (m_inventory.GetItemAmount (chargeDefinitionIds[i]), chargeObjectBuilders[i]);
 				}
 			}

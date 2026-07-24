@@ -58,12 +58,13 @@
             <OverlayTexture>Textures\GUI\Screens\turret_overlay.dds</OverlayTexture>
             <WeaponDefinitionId Subtype="TractorBeam"/>
             <InventoryMaxVolume>0.384</InventoryMaxVolume>
+            <ResourceSinkGroup>Defense</ResourceSinkGroup>
             <MinElevationDegrees>-5</MinElevationDegrees>
             <MaxElevationDegrees>90</MaxElevationDegrees>
             <MinAzimuthDegrees>-180</MinAzimuthDegrees>
             <MaxAzimuthDegrees>180</MaxAzimuthDegrees>
-            <RotationSpeed>0.004</RotationSpeed>
-            <ElevationSpeed>0.004</ElevationSpeed>
+            <RotationSpeed>0.003</RotationSpeed>
+            <ElevationSpeed>0.003</ElevationSpeed>
             <IdlePower>1</IdlePower>
             <UsePower>10</UsePower>
             <MinFov>0.1</MinFov>
@@ -115,6 +116,7 @@
             <OverlayTexture>Textures\GUI\Screens\turret_overlay.dds</OverlayTexture>
             <WeaponDefinitionId Subtype="TractorBeamS"/>
             <InventoryMaxVolume>0.384</InventoryMaxVolume>
+            <ResourceSinkGroup>Defense</ResourceSinkGroup>
             <StandbyPowerConsumption>1</StandbyPowerConsumption>
             <OperationalPowerConsumption>10</OperationalPowerConsumption>
             <AiEnabled>true</AiEnabled>
@@ -124,8 +126,8 @@
             <MaxElevationDegrees>90</MaxElevationDegrees>
             <MinAzimuthDegrees>-180</MinAzimuthDegrees>
             <MaxAzimuthDegrees>180</MaxAzimuthDegrees>
-            <RotationSpeed>0.008</RotationSpeed>
-            <ElevationSpeed>0.008</ElevationSpeed>
+            <RotationSpeed>0.003</RotationSpeed>
+            <ElevationSpeed>0.003</ElevationSpeed>
             <MinFov>0.1</MinFov>
             <MaxFov>1.04719755</MaxFov>
             <IdleRotation>true</IdleRotation>

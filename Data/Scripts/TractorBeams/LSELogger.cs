@@ -179,7 +179,7 @@ namespace LSE
                     catch { return; }
                 }
 
-                Sandbox.ModAPI.MyAPIGateway.Utilities.ShowNotification("writing: " + message);
+
                 m_logger.Write(m_cache);
                 m_logger.Flush();
                 m_cache.Clear();

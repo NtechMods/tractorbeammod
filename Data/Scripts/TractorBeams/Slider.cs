@@ -10,12 +10,12 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 using System.Runtime.InteropServices;
-using System.Collections;
 
 using Sandbox.ModAPI;
 using VRage.ObjectBuilders;
 using Sandbox.ModAPI.Interfaces.Terminal;
 using VRage.ModAPI;
+using VRage.Utils;
 
 namespace LSE.Control
 {

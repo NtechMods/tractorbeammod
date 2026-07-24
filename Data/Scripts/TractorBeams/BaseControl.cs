@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Text;
 
 using Sandbox.ModAPI;
 using VRage.ObjectBuilders;
@@ -32,7 +29,7 @@ namespace LSE.Control
         {
             var controls = new List<IMyTerminalControl>();
             MyAPIGateway.TerminalControls.GetControls<T>(out controls);
-            var control = controls.Find((x) => x.Id.ToString() == InternalName);
+            IMyTerminalControl control = controls.Find(x => x.Id.ToString() == InternalName);
             if (control == null)
             {
                 OnCreateUI();

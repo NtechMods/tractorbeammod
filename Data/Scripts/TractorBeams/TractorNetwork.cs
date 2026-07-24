@@ -308,12 +308,9 @@ namespace LSE.TractorNetwork
         public long EntityId;
 
         [ProtoMember(2)]
-        public float Max = 15; // meters
+        public float Distance = 15; // meters
 
         [ProtoMember(3)]
-        public float Min = 10; // meters
-
-        [ProtoMember(4)]
         public float Strength = 50;  // Newton
 
         public override void ProcessClient()
@@ -335,10 +332,11 @@ namespace LSE.TractorNetwork
             IMyEntity block;
             if (MyAPIGateway.Entities.TryGetEntityById(EntityId, out block))
             {
-                var traction = block.GameLogic.GetAs<TractorBeam.TractorBeamTurret>();
+                var traction = block.GameLogic?.GetAs<TractorBeam.TractorBeamTurret>();
+                if (traction == null)
+                    return;
 
-                traction.UI.MinSlider.SetterNoCheck((IMyTerminalBlock)block, Min);
-                traction.UI.MaxSlider.SetterNoCheck((IMyTerminalBlock)block, Max);
+                traction.UI.DistanceSlider.SetterNoCheck((IMyTerminalBlock)block, Distance);
                 traction.UI.StrengthSlider.SetterNoCheck((IMyTerminalBlock)block, Strength);
 
                 MyAPIGateway.TerminalControls.GetControls<Sandbox.ModAPI.Ingame.IMyLargeTurretBase>(out controls);
